@@ -658,6 +658,14 @@
                 checked = true;
             }
         }
+        
+        if (Config.debug) {
+            if (next.found)
+                next.link.style.boxShadow = '0 0 2px 2px #FF5555';
+            if (previous.found)
+                previous.link.style.boxShadow = '0 0 2px 2px #5AC900';
+            console.log(next, previous)
+        }
 
         if (direction && next.found) {
             openLink(next.link, next.click);
