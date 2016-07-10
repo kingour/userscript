@@ -613,7 +613,14 @@
         linkNode.focus();
 
         var hf = linkNode.getAttribute("href");
-        if (!click && !linkNode.hasAttribute("onclick") && hf && !(/^#/.test(hf)) && linkNode.href != location.href) {
+        
+        var canHrefJump = !click && !linkNode.hasAttribute("onclick") && hf && !(/^#/.test(hf)) && linkNode.href != location.href && !(/^javascript:/.test(hf));
+        if (debug) {
+            console.log("linkNode:", linkNode, "\tclick:", click, "\thf:", hf, "\tcanHrefJump:", canHrefJump);
+            return;
+        }
+        
+        if (canHrefJump) {
             cleanVars();
             location.assign(linkNode.href);
         } else {
@@ -650,15 +657,6 @@
                 checkLinks();
                 checked = true;
             }
-        }
-
-        if (Config.debug) {
-            if (next.found)
-                next.link.style.boxShadow = '0 0 2px 2px #FF5555';
-            if (previous.found)
-                previous.link.style.boxShadow = '0 0 2px 2px #5AC900';
-            console.log(next, previous)
-            return;
         }
 
         if (direction && next.found) {
